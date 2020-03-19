@@ -13,9 +13,10 @@
 import wx
 
 class DialogMSG(wx.Frame):
-    def __init__(self, parent, user_name, uid):
+    def __init__(self, parent=None, func_callback=None, user_name='default', uid='0'):
         super(DialogMSG, self).__init__(parent)
         self.SetNameID(user_name, uid)
+        self.UpdateUI = func_callback
         self.InitUI()
         self.SetSize((500, 180))
         self.SetTitle('确认输入信息')
@@ -28,7 +29,6 @@ class DialogMSG(wx.Frame):
     def InitUI(self):
         panel = wx.Panel(self)
         vbox = wx.BoxSizer(wx.VERTICAL)
-        
         text_user_info_name = "您输入的姓名是 " + self.user_name
         text_user_info_id = "您输入的ID是 " + self.user_id
         text_guide = "如果正确请点击确定，如果错误请点击取消，可返回上一级修改。"
@@ -53,6 +53,7 @@ class DialogMSG(wx.Frame):
 
     def Next(self, e):
         # 到下一个页面
+        self.UpdateUI(1)
         self.Destroy()
         return 100
 

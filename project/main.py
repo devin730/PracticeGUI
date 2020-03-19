@@ -1,7 +1,7 @@
 #coding=utf-8
 
 import wx
-import guiManager as FrameManager
+import FrameManager
 
 class MainAPP(wx.App):
     def OnInit(self):
@@ -15,9 +15,7 @@ class MainAPP(wx.App):
         self.frame = self.manager.GetFrame(type)
         self.frame.Show(True)
 
-def main():
-    app = MainAPP()
-    app.MainLoop()
 
 if __name__ == '__main__':
-    main()
+    app = MainAPP()
+    app.MainLoop()

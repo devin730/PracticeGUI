@@ -22,8 +22,7 @@ class Example(wx.Frame):
         self.Centre()
 
     def PrintChar(self, e):
-        # char = e.
-        # print(char)
+        print('c')
 
     def OnKeyDown(self, e):
         key = e.GetKeyCode()

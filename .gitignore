@@ -1,1 +1,7 @@
 /.vscode
+*.gz
+project/__pycache__/*
+project/build/*
+project/dist/*
+*.spec
+*.exe

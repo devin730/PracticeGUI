@@ -12,18 +12,18 @@
 
 import wx
 import wx.adv
-import dia
+import LoginDialog
 
 
-class programme(wx.Frame):
-    def __init__(self, parent, title):
-        super(programme, self).__init__(parent, title=title)
+class LoginFrame(wx.Frame):
+    def __init__(self, parent=None, id=-1, UpdateUI=None, title='登录页面'):
+        wx.Frame.__init__(self, parent, id, title)
+        self.UpdateUI = UpdateUI
         self.InitUI()
         self.Centre()
 
     def InitUI(self):
         self.SetSize((750, 350))  # 设置窗口尺寸
-        self.SetTitle('Welcome')
         self.InitMenubar()
         self.InitPanel()
 
@@ -96,7 +96,9 @@ class programme(wx.Frame):
         #! 绑定文本框的输入
         self.userName = self.tc.GetValue()
         self.userID = self.tc2.GetValue()
-        comfirm_dialogs = dia.DialogMSG(None, user_name=self.userName, uid=self.userID)
+        # comfirm_dialogs = LoginDialog.DialogMSG(None, user_name=self.userName, uid=self.userID)
+        # comfirm_dialogs.Show()
+        comfirm_dialogs = logindialog(func_cb=self.UpdateUI, uname=self.userName, uuid=self.userID)
         comfirm_dialogs.Show()
 
     def Close(self, e):
@@ -125,9 +127,13 @@ class programme(wx.Frame):
         info.AddTranslator('Deng Zengming')
         wx.adv.AboutBox(info)
 
+class logindialog(LoginDialog.DialogMSG):
+    def __init__(self, func_cb, uname, uuid):
+        LoginDialog.DialogMSG.__init__(self, parent=None,
+                                       func_callback=func_cb, user_name=uname, uid=uuid)
 
 if __name__ == '__main__':
     app = wx.App()
-    ex = programme(None, title='test programme')
+    ex = LoginFrame(None, title='test programme')
     ex.Show()
     app.MainLoop()

@@ -2,7 +2,6 @@
 
 import wx
 
-
 class InputDialog(wx.Dialog):
     def __init__(self, title, func_callBack, themeColor):
         wx.Dialog.__init__(self, None, -1, title, size=(300, 200))

@@ -16,11 +16,14 @@ import LoginDialog
 
 
 class LoginFrame(wx.Frame):
-    def __init__(self, parent=None, id=-1, UpdateUI=None, title='登录页面'):
+    def __init__(self, parent=None, id=-1, UpdateUI=None,
+                 title='登录页面', UpName=None, UpRecord=None):
         wx.Frame.__init__(self, parent, id, title)
         self.UpdateUI = UpdateUI
         self.InitUI()
         self.Centre()
+        self.UpdateName = UpName
+        self.UpdateRecord = UpRecord
 
     def InitUI(self):
         self.SetSize((750, 350))  # 设置窗口尺寸
@@ -96,9 +99,8 @@ class LoginFrame(wx.Frame):
         #! 绑定文本框的输入
         self.userName = self.tc.GetValue()
         self.userID = self.tc2.GetValue()
-        # comfirm_dialogs = LoginDialog.DialogMSG(None, user_name=self.userName, uid=self.userID)
-        # comfirm_dialogs.Show()
-        comfirm_dialogs = logindialog(func_cb=self.UpdateUI, uname=self.userName, uuid=self.userID)
+        comfirm_dialogs = logindialog(func_cb=self.UpdateUI, uname=self.userName,
+                                      uuid=self.userID, callback_name=self.UpdateName, callback_str=self.UpdateRecord)
         comfirm_dialogs.Show()
 
     def Close(self, e):
@@ -128,9 +130,11 @@ class LoginFrame(wx.Frame):
         wx.adv.AboutBox(info)
 
 class logindialog(LoginDialog.DialogMSG):
-    def __init__(self, func_cb, uname, uuid):
-        LoginDialog.DialogMSG.__init__(self, parent=None,
-                                       func_callback=func_cb, user_name=uname, uid=uuid)
+    def __init__(self, func_cb, uname, uuid, callback_name, callback_str):
+        LoginDialog.DialogMSG.__init__(self, parent=None, func_callback=func_cb,
+                                       user_name=uname, uid=uuid,
+                                       name_callback=callback_name,
+                                       str_callback=callback_str)
 
 if __name__ == '__main__':
     app = wx.App()

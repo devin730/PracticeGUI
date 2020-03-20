@@ -13,7 +13,8 @@
 import wx
 
 class DialogMSG(wx.Frame):
-    def __init__(self, parent=None, func_callback=None, user_name='default', uid='0'):
+    def __init__(self, parent=None, func_callback=None, user_name='default',
+                 uid='0', name_callback=None, str_callback=None):
         super(DialogMSG, self).__init__(parent)
         self.SetNameID(user_name, uid)
         self.UpdateUI = func_callback
@@ -21,6 +22,8 @@ class DialogMSG(wx.Frame):
         self.SetSize((500, 180))
         self.SetTitle('确认输入信息')
         self.Centre()
+        self.UpdateName = name_callback
+        self.UpdateStr = str_callback
 
     def SetNameID(self, username='default name', u_id='0'):
         self.user_name = username
@@ -53,6 +56,8 @@ class DialogMSG(wx.Frame):
 
     def Next(self, e):
         # 到下一个页面
+        self.UpdateName(usname=self.user_name)
+        self.UpdateStr(type=0, ustr=self.user_id)
         self.UpdateUI(1)
         self.Destroy()
         return 100

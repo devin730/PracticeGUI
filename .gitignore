@@ -5,3 +5,4 @@ project/build/*
 project/dist/*
 *.spec
 *.exe
+*.zip
